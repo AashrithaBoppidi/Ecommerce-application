@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // Components
 import Navbar from './components/Navbar';
@@ -22,32 +22,34 @@ import ChangePayment from './pages/ChangePayment';
 
 function App() {
   return (
-    <>
-      <Navbar />
-      <div className="container" style={{ minHeight: '80vh', paddingBottom: '3rem' }}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/product/:id" element={<ProductDetails />} />
+    <Router basename={process.env.PUBLIC_URL}>
+      <>
+        <Navbar />
+        <div className="container" style={{ minHeight: '80vh', paddingBottom: '3rem' }}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/product/:id" element={<ProductDetails />} />
 
-          {/* Protected: User */}
-          <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
-          <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
-          <Route path="/orders" element={<ProtectedRoute><Orders /></ProtectedRoute>} />
-          <Route path="/group-cart" element={<ProtectedRoute><GroupCart /></ProtectedRoute>} />
-          <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-          <Route path="/wishlist" element={<ProtectedRoute><Wishlist /></ProtectedRoute>} />
+            {/* Protected: User */}
+            <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
+            <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
+            <Route path="/orders" element={<ProtectedRoute><Orders /></ProtectedRoute>} />
+            <Route path="/group-cart" element={<ProtectedRoute><GroupCart /></ProtectedRoute>} />
+            <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+            <Route path="/wishlist" element={<ProtectedRoute><Wishlist /></ProtectedRoute>} />
 
-          {/* Protected: Admin */}
-          <Route path="/admin" element={<ProtectedRoute adminOnly={true}><Admin /></ProtectedRoute>} />
+            {/* Protected: Admin */}
+            <Route path="/admin" element={<ProtectedRoute adminOnly={true}><Admin /></ProtectedRoute>} />
 
-          {/* Payment change via email link */}
-          <Route path="/change-payment" element={<ChangePayment />} />
-        </Routes>
-      </div>
-      <Footer />
-    </>
+            {/* Payment change via email link */}
+            <Route path="/change-payment" element={<ChangePayment />} />
+          </Routes>
+        </div>
+        <Footer />
+      </>
+    </Router>
   );
 }
 
